@@ -1,7 +1,8 @@
 fjakwg
-gagawga
+gagawga                     ; this is a comment that should get removed
 gawgadaw
-adwawf
+      adwawf
+
 IMP "imported.ikea"
 IMP imported.ikea"
 IMP imported.ikea

@@ -1,7 +1,11 @@
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 
 #include "Program.h"
+#include "Str.h"
+
+#include "Instruction/Instruction.h"
 
 void Program::Load(const std::string &path) {
   File f(path);
@@ -15,7 +19,12 @@ void Program::Load(const std::string &path) {
   }
 
   Import();
-  // Clean();
+  Clean();
+
+  for(auto line : m_RealLines)
+  {
+    std::cout << line << std::endl;
+  }
 }
 
 void Program::Import() {
@@ -47,7 +56,16 @@ void Program::Import() {
 }
 
 void Program::Clean() {
-  
+
+  for(int i = 0; i < m_RealLines.size(); i++)
+  {
+    auto commentPos = m_RealLines[i].find(";");
+
+    if(commentPos != std::string::npos)
+      m_RealLines[i] = m_RealLines[i].substr(0, commentPos);
+
+    Str::Trim(m_RealLines[i]);
+  }
 }
 
 void Program::InsertLines(int start, std::vector<std::string> lines,

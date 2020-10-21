@@ -22,8 +22,8 @@ public:
       while (!file.eof()) {
          std::getline(file, line);
   
-         if (line == "")
-           break;
+         // if (line == "")
+           // break;
   
          m_Lines.push_back(line);
       }
