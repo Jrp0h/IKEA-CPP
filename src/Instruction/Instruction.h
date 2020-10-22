@@ -3,23 +3,24 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <iostream>
 
 #include "Lineinfo.h"
 #include "Str.h"
 
 class Instruction {
 public:
-  Instruction(std::string instruction) : m_Instruction(instruction) {}
+  Instruction(std::string tag) : m_Tag(tag) {}
   virtual ~Instruction() = default; 
 
-  std::string GetInstruction() { return m_Instruction; }
+  std::string GetTag() { return m_Tag; }
 
-  bool Parse(std::string line, Lineinfo lineinfo) {
+  virtual bool Parse(std::string line, Lineinfo lineinfo) {
     auto pos = line.find(" ");
     std::string instruction = line.substr(0, pos);
     std::string argLine = line.substr(pos + 1);
 
-    if(instruction != m_Instruction)
+    if(instruction != m_Tag)
       return false;
 
     std::vector<std::string> args;
@@ -36,9 +37,9 @@ public:
   }
 
 protected:
-  virtual bool ParseLine(std::vector<std::string> args, Lineinfo lineinfo);
+  virtual bool ParseLine(std::vector<std::string> args, Lineinfo lineinfo) = 0;
 
 protected:
-  std::string m_Instruction;
+  std::string m_Tag;
 
 };

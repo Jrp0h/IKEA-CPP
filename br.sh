@@ -4,4 +4,4 @@ make
 
 cd ..
 
-build/IKEA
+build/IKEA $1

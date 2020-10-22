@@ -2,16 +2,30 @@
 #include <filesystem>
 
 #include "Program.h"
+#include "Memory/Register.h"
 
-int main()
+int main(int argc, char** argv)
 {
-
+#ifdef IKEA_VERBOSE
+   std::cout << "IKEA runing in ";
 #ifdef IKEA_DEBUG
-   std::cout << "DEBUG" << std::endl;
+   std::cout << "DEBUG MODE" << std::endl;
 #endif
 #ifdef IKEA_RELEASE
-   std::cout << "RELEASE" << std::endl;
+   std::cout << "RELEASE MODE"<< std::endl; 
+#endif
 #endif
 
-   Program::Load("test.ikea");
+   std::string file = "code.ikea";
+
+   if(argc > 1)
+      file = argv[1];
+
+#ifdef IKEA_DEBUG
+   std::cout << "Loading file: " << file << std::endl << std::endl;
+#endif
+
+   Program::Load(file);
+   Program::Run();
+   Register::PrintVars();
 }

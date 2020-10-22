@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+#include "Str.h"
+
 class File {
 public:
    File(const std::string &path) {
@@ -22,10 +24,7 @@ public:
       while (!file.eof()) {
          std::getline(file, line);
   
-         // if (line == "")
-           // break;
-  
-         m_Lines.push_back(line);
+         m_Lines.push_back(Str::Trim(line));
       }
   
       m_Name = path;

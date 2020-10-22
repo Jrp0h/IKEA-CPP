@@ -12,11 +12,14 @@ if [ ! -z "$1" ]; then
   MODE="$1" 
 fi
 
-if [ -d "build" ]; then
-  rm -r build
+# if [ -d "build" ]; then
+  # rm -r build
+# fi
+
+if [ ! -d "build" ]; then
+  mkdir build
 fi
 
-mkdir build
 cd build
 
 cmake -DCMAKE_BUILD_TYPE="$MODE" ..
