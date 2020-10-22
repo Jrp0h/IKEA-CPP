@@ -1,5 +1,0 @@
--DENGINE_DEBUG
--DPLATFORM_LINUX
--Isrc
--std=c++17
--Wl,-soname=libEngine.so

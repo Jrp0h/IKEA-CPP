@@ -4,3 +4,6 @@
 *.sln
 *.vcxproj
 **/.vs/
+**/build
+
+compile_commands.json
