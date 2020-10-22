@@ -6,6 +6,7 @@
 #include "Str.h"
 
 #include "Instruction/Instruction.h"
+#include "Instruction/PRNT.h"
 
 void Program::Load(const std::string &path) {
   File f(path);
@@ -20,11 +21,14 @@ void Program::Load(const std::string &path) {
 
   Import();
   Clean();
+  InitInstructions();
 
+#if IKEA_DEBUG
   for(auto line : m_RealLines)
   {
     std::cout << line << std::endl;
   }
+#endif
 }
 
 void Program::Import() {
@@ -66,6 +70,56 @@ void Program::Clean() {
 
     Str::Trim(m_RealLines[i]);
   }
+}
+
+void Program::Run() {
+  ReadNextLine();
+}
+
+void Program::ReadNextLine() {
+  m_CurrentLine = m_NextLine++;
+
+  if(m_CurrentLine == m_RealLines.size())
+    return;
+
+  if(m_RealLines[m_CurrentLine].find("FUN") == 0)
+  {
+    if(m_IsInFunction)
+      throw std::runtime_error("Tried declaring a function before closing another function. Nested functions are not allowed" + LineinfoToString(LineinfoFromRealline(m_CurrentLine)));
+
+    m_IsInFunction = true;
+    ReadNextLine();
+    return;
+  }
+
+  if(m_RealLines[m_CurrentLine].find("EFUN") == 0)
+  {
+    if(!m_IsInFunction)
+      throw std::runtime_error("Tried closing a function before opening." + LineinfoToString(LineinfoFromRealline(m_CurrentLine)));
+
+    m_IsInFunction = false;
+    ReadNextLine();
+    return;
+  }
+
+  // Skip empty lines and functionlines
+  if(m_RealLines[m_CurrentLine] == "" || m_IsInFunction)
+  {
+    ReadNextLine();
+    return;
+  }
+
+  for(auto instruction : m_Instructions)
+  {
+    if(instruction.Parse(m_RealLines[m_CurrentLine], LineinfoFromRealline(m_CurrentLine)))
+    {
+      ReadNextLine();
+      return;
+    }
+  }
+
+  if(m_RealLines[m_CurrentLine].find("SEC") != 0)
+      throw std::runtime_error("Unparseable line. " + LineinfoToString(LineinfoFromRealline(m_CurrentLine)));
 }
 
 void Program::InsertLines(int start, std::vector<std::string> lines,
@@ -115,4 +169,16 @@ Lineinfo Program::LineinfoFromRealline(int realLine) {
 
   throw std::runtime_error("Failed finding lineinfo from real line: " +
                            std::to_string(realLine));
+}
+
+void Program::SetNextLine(int line) {
+  m_NextLine = line;
+}
+
+int Program::GetNextLine() {
+  return m_NextLine;
+}
+
+void Program::InitInstructions() {
+  m_Instructions.push_back(PRNT());
 }

@@ -7,9 +7,10 @@
 #include "Lineinfo.h"
 #include "Str.h"
 
-class Token {
+class Instruction {
 public:
-  Token(std::string instruction) : m_Instruction(instruction) {}
+  Instruction(std::string instruction) : m_Instruction(instruction) {}
+  virtual ~Instruction() = default; 
 
   std::string GetInstruction() { return m_Instruction; }
 

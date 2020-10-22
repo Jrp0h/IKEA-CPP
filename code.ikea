@@ -1,0 +1,24 @@
+PRNT pre-call
+CALL testfun1
+PRNT post-call
+
+VAR hejhej,3
+MOV 4,69
+MOV &hejhej,#4
+VAR bajs,$hejhej 
+
+FUN testfun1:
+    PRNT call
+    MOV 9,4
+    JMPJ #9,jumphere1
+    JMPN #9,jumphere2
+    JMPB
+SEC jumphere1:
+    PRNT jh1
+    JMPB
+SEC jumphere2:
+    PRNT jh2
+    JMPB
+EFUN
+
+; Expected = pre-call, call, (jh1,) post-call
