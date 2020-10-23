@@ -12,20 +12,23 @@
 
 #include "Callstack.h"
 
-class VAR : public Instruction {
+class INC : public Instruction {
 public:
-   VAR() : Instruction("VAR") { }
+   INC() : Instruction("INC") { }
 
 protected:
    bool ParseLine(std::vector<std::string> parts, Lineinfo lineinfo) override {
-      if(parts.size() != 2)
+      if(parts.size() != 1)
          throw std::runtime_error("Invalid argument length at " + ProgramFiles::LineinfoToString(lineinfo));
 
-      int vValue = 0;
+      int vMemory = 0;
 
-      ValueType vtValue = ValueParser::Parse(parts[1], vValue, lineinfo);
+      ValueType vtMemory = ValueParser::Parse(parts[0], vMemory, lineinfo, true);
 
-      Register::SetVar(parts[0], vValue);
+      if(vtMemory == ValueType::PLAIN)
+         throw std::runtime_error("Memory address cant be Plain, requires # before number" + ProgramFiles::LineinfoToString(lineinfo));
+
+      Register::SetMemoryAt(vMemory, Register::GetMemoryAt(vMemory) + 1);
 
       return true;
    }

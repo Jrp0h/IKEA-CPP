@@ -12,6 +12,7 @@ public:
 
   static void SetMemoryAt(int slot, int value);
   static void SetMemoryAt(int slot, bool value[16]);
+  static void SetMemoryAt(int slot, Memory value);
 
   static Memory& GetMemoryAt(int slot);
 

@@ -92,6 +92,8 @@ void Program::InitInstructions() {
   m_Instructions.push_back(std::move(new MOV()));
   m_Instructions.push_back(std::move(new VAR()));
   m_Instructions.push_back(std::move(new PRNTM()));
+  m_Instructions.push_back(std::move(new INC()));
+  m_Instructions.push_back(std::move(new DEC()));
 }
 
 void Program::AddInstruction(Instruction& instruction)

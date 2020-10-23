@@ -41,5 +41,4 @@ protected:
 
 protected:
   std::string m_Tag;
-
 };

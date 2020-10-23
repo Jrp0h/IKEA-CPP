@@ -10,3 +10,6 @@
 #include "JMPIF.h"
 #include "MOV.h"
 #include "VAR.h"
+
+#include "INC.h"
+#include "DEC.h"

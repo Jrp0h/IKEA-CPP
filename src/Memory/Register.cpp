@@ -30,6 +30,13 @@ void Register::SetMemoryAt(int slot, bool value[16]) {
   m_Memory[slot].SetValue(value);
 }
 
+void Register::SetMemoryAt(int slot, Memory value) {
+  if(slot >= m_Memory.size())
+    throw std::runtime_error("Cannot access memory " + std::to_string(slot) + ". Max is 32");
+
+  m_Memory[slot] = value;
+}
+
 Memory& Register::GetMemoryAt(int slot) {
   if(slot >= m_Memory.size())
     throw std::runtime_error("Cannot access memory " + std::to_string(slot) + ". Max is 32");

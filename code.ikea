@@ -4,14 +4,12 @@ PRNT pre-calls
 CALL testfun1
 PRNT post-calls
 
-PRNTM
-
 VAR hejhej,3
 MOV #4,69
 MOV &hejhej,#4
+INC &hejhej
+DEC &hejhej
 VAR bajs,$hejhej 
-
-PRNTM
 
 FUN testfun1:
     PRNT call

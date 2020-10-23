@@ -26,6 +26,20 @@ FUN [STR]:
 
 > Requires EFUN when the function is done
 
+### Numbers
+
+Increment number by one
+
+```bash
+INC [$VAR_VALUE|&VAR|#DIRECT]
+```
+
+Decrement number by one
+
+```bash
+DEC [$VAR_VALUE|&VAR|#DIRECT]
+```
+
 ### Flow Control
 
 Jump to section if value is 0(zero)
