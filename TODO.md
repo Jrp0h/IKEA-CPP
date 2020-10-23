@@ -1,3 +1,3 @@
 # TODO
 
-WTF, if imported file has more than one line, it fucks up the simlulated memory...
+Nothing really, it's pretty much done

@@ -39,7 +39,12 @@ namespace IKEA::Instruction {
          if(parts.size() == 2)
          {
             vNum1 = vMemory;
-            vtNum1 = vtMemory;
+
+            if(vtMemory == ValueType::VAR)
+            {
+               vNum1 = Register::GetMemoryAt(vMemory).GetValue();
+            }
+
             num2Part = 1;
          }
          else if(parts.size() == 3)

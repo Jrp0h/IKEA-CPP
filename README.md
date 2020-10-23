@@ -1,14 +1,56 @@
-# Readme aka notes for self
+# Readme
+
+## Basic usage
+
+clone the project
+
+```bash
+git clone https://github.com/Jrp0h/IKEA-CPP.git ./ikea
+```
+
+Go in to the project
+
+```bash
+cd ikea
+```
+
+Set up CMake.
+
+```bash
+./cmake.sh
+```
+
+> Argument can be Debug or Release. It's case sensitive
+
+Build and Run
+
+```bash
+./br.sh <path to .ikea the file you want to run>
+```
+
+There are some examples at the end of this document.
+The .ikea file to those are in ./tests
 
 ## Value types
 
-VAR_VALUE ($) = the value at the memory address the var is pointing to
-VAR (&) = the memory address the var is pointing to
-DIRECT (\#) = Index of memory
+VAR_VALUE ($) = the value at the memory address the var is pointing to,
+like dereference in c/c++
+
+VAR (&) = the memory address the var is pointing to, like reference in c/c++
+
+DIRECT (\#) = Index of memory, 0-31
+
 PLAIN () = Normal number
+
 STR = Text
 
 ## Instructions
+
+### Comments
+
+```bash
+PRNT Hello World    ; everything after semicolons are comments
+```
 
 ### Declaration
 
@@ -40,6 +82,34 @@ Decrement number by one
 DEC [$VAR_VALUE|&VAR|#DIRECT]
 ```
 
+Add numbers
+
+arg1 = arg2 + arg3
+
+```bash
+ADD [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
+```
+
+arg1 += arg2
+
+```bash
+ADD [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
+```
+
+Subtract numbers
+
+arg1 = arg2 - arg3
+
+```bash
+SUB [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
+```
+
+arg1 -= arg2
+
+```bash
+SUB [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
+```
+
 #### Bitwise
 
 AND
@@ -50,10 +120,10 @@ arg1 = arg2 & arg3
 AND [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
 ```
 
-arg1 = arg1 & arg2
+arg1 &= arg2
 
 ```bash
-AND [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
+AND [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
 ```
 
 OR
@@ -64,15 +134,15 @@ arg1 = arg2 | arg3
 OR [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
 ```
 
-arg1 = arg1 | arg2
+arg1 |= arg2
 
 ```bash
-OR [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
+OR [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
 ```
 
 XOR
 
-arg1 = arg2 ^ arg3
+arg1 ^= arg3
 
 ```bash
 XOR [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
@@ -81,7 +151,7 @@ XOR [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN],[$VAR_VALUE|&VAR|#
 arg1 = arg1 | arg2
 
 ```bash
-XOR [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
+XOR [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
 ```
 
 ### Flow Control
@@ -162,9 +232,37 @@ Print Memory
 PRNTM
 ```
 
+### Bit Manipulation
+
+Rotate Left
+
+```bash
+ROTL [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
+```
+
+Rotate Right
+
+```bash
+ROTR [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
+```
+
+Shift Left
+
+```bash
+SHFL [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
+```
+
+Shift Right
+
+```bash
+SHFR [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
+```
+
 ## Examples
 
 Hello World
+
+File: ./tests/hello_world.ikea
 
 ```c++
 #include <iostream>
@@ -179,6 +277,8 @@ PRNT Hello World
 ```
 
 Function that print hello
+
+File: ./tests/function.ikea
 
 ```c++
 #include <iostream>
@@ -201,6 +301,8 @@ EFUN
 ```
 
 Variables
+
+File: ./tests/variables.ikea
 
 ```c++
 #include <iostream>
@@ -232,6 +334,8 @@ PRNT $age
 ```
 
 If, else if, else
+
+File: ./tests/if_elseif_else.ikea
 
 ```c++
 #include <iostream>
@@ -280,7 +384,9 @@ SEC ac:
   PRNT after comparisons
 ```
 
-While loop
+While/for loop
+
+File: ./tests/while_loop.ikea
 
 ```c++
 #include <iostream>
@@ -318,7 +424,9 @@ SEC after:
   PRNT Out of the Loop
 ```
 
-Fibonacci forloop
+Fibonacci for-loop
+
+File: ./tests/fibonacci_forloop.ikea
 
 ```c++
 // From
@@ -403,6 +511,8 @@ SEC validate:
 ```
 
 Fibonacci function
+
+File: ./tests/fibonacci_function.ikea
 
 ```c++
 // From

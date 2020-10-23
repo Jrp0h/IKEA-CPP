@@ -36,7 +36,8 @@ namespace IKEA::Instruction {
 
       while(std::getline(s, a, ','))
       {
-        args.push_back(Str::Trim(a));
+        if(a != m_Tag)
+          args.push_back(Str::Trim(a));
       }
 
       return ParseLine(args, lineinfo);

@@ -16,8 +16,14 @@ namespace IKEA::Instruction {
 
    protected:
       bool ParseLine(std::vector<std::string> parts, Lineinfo lineinfo) override {
+         if(parts.size() == 0) {
+            std::cout << std::endl;
+            return true;
+         }
+
          if(parts.size() != 1)
             throw std::runtime_error("Invalid argument length at " + ProgramFiles::LineinfoToString(lineinfo));
+
            
          int value;
          ValueType vtValue = ValueParser::Parse(parts[0], value, lineinfo, false, true);
