@@ -1,12 +1,9 @@
 VAR x,#0
-VAR write_addr,#1
-VAR minus_one,#2
-VAR minus_two,#3
-VAR adder,#4
 VAR result,#5
-VAR should_add,#6
+VAR should_add,#7
+VAR tmp_should_add,#7
 
-MOV &x,3
+MOV &x,15
 
 CALL fibonacci
 PRNT $result
@@ -15,49 +12,49 @@ PRNTV
 PRNTM
 
 FUN fibonacci:
-   
-   PRNT $result
 
    MOV &should_add,1
-
-   MOV &minus_one,0
-   MOV &minus_two,0
+   MOV &tmp_should_add,1
 
    JMPZ $x, one_or_zero
    JMPO $x, one_or_zero
    JMP else
 
    SEC one_or_zero:
-      MOV &write_addr,$x
+      ADD &result, $result, $x
       MOV &should_add,0
       RET
 
    SEC else:
-
       ; fib(x-1)
-      VAR write_addr,#4
       DEC $x
       CALL fibonacci
-      JMPO $should_add, add_one
+      JMP add_one
+      ; MOV &tmp_should_add, $should_add
+      ; MOV &should_add, 1
+      ; JMPO $tmp_should_add, add_one
       
       SEC after_add_one:
          ; fib(x-2)
-         VAR write_addr,#5
          SUB &x,2
          CALL fibonacci
-         JMPO $should_add, add_two
+         JMP add_two
+
+         ; MOV &tmp_should_add, $should_add
+         ; MOV &should_add, 1
+         ; JMPO $tmp_should_add, add_two
 
       SEC after_add_two:
-         ADD &adder,#4,#5
-         ADD &result,$adder
          RET
 
    SEC add_one:
       INC $x
+      MOV &should_add,1
       JMP after_add_one
 
    SEC add_two:
       ADD &x,2
+      MOV &should_add,1
       JMP after_add_two
 
 EFUN
