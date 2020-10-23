@@ -25,8 +25,8 @@ protected:
 
       ValueType vtValue = ValueParser::Parse(parts[1], vValue, lineinfo);
 
-      // std::cout << "p1 " << parts[0] << " p2 " << parts[1] << std::endl;
-      // std::cout << "Setting " << parts[0] << " to " << vValue << std::endl << std::endl;
+      std::cout << "p1 " << parts[0] << " p2 " << parts[1] << std::endl;
+      std::cout << "Setting " << parts[0] << " to " << vValue << std::endl << std::endl;
 
       Register::SetVar(parts[0], vValue);
       // Register::PrintVars();

@@ -23,7 +23,7 @@ void Register::SetMemoryAt(int slot, int value) {
   m_Memory[slot].SetValue(value);
 }
 
-void Register::SetMemoryAt(int slot, std::array<bool, 16> value) {
+void Register::SetMemoryAt(int slot, bool value[16]) {
   if(slot >= m_Memory.size())
     throw std::runtime_error("Cannot access memory " + std::to_string(slot) + ". Max is 32");
 
@@ -65,4 +65,12 @@ void Register::PrintVars(){
   if(m_Vars.size() <= 0)
     std::cout << "NO VARIABLES SET" << std::endl;
 
+}
+
+void Register::PrintMemory(){
+  std::cout << std::endl << std::endl << "Variables" << std::endl;
+  for(int i = 0; i < 32; i++)
+  {
+    std::cout << "#" << i << " : " << m_Memory[i].ToBinaryString() << "(" << m_Memory[i].GetValue() << ")" << std::endl; 
+  }
 }

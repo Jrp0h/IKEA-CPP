@@ -6,16 +6,18 @@ class Memory {
 public:
   Memory();
   Memory(int value);
-  Memory(std::array<bool, 16> value);
+  Memory(bool value[16]);
 
   void SetValue(int value);
-  void SetValue(std::array<bool, 16> value);
+  void SetValue(bool value[16]);
 
   int GetValue();
+
+  std::string ToBinaryString();
 
 private:
   void ResetValue();
 
 private:
-  std::array<bool, 16> m_Data;
+  bool m_Data[16];
 };

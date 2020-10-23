@@ -33,6 +33,10 @@ class Callstack {
          return m_LastLines;
       }
 
+      static int Size() {
+         return m_LastLines.size();
+      }
+
    private:
       inline static std::vector<int> m_LastLines;
 };

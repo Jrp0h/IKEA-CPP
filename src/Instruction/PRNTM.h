@@ -6,16 +6,15 @@
 
 #include "Instruction/Instruction.h"
 #include "Lineinfo.h"
+#include "Memory/Register.h"
 
-class PRNT : public Instruction {
+class PRNTM : public Instruction {
 public:
-   PRNT() : Instruction("PRNT") { }
+   PRNTM() : Instruction("PRNTM") { }
 
 protected:
    bool ParseLine(std::vector<std::string> parts, Lineinfo lineinfo) override {
-      if(parts.size() == 1)
-         std::cout << parts[0] << std::endl;
-
+      Register::PrintMemory();
       return true;
    }
 };

@@ -97,3 +97,9 @@ Print All variables
 ```bash
 PRNTV
 ```
+
+Print Memory
+
+```bash
+PRNTM
+```

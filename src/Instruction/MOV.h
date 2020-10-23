@@ -30,8 +30,8 @@ protected:
       if(vtMemory == ValueType::PLAIN)
          throw std::runtime_error("Memory address cant be Plain, requires # before number" + ProgramFiles::LineinfoToString(lineinfo));
 
-      // std::cout << "p1 " << parts[0] << " p2 " << parts[1] << std::endl;
-      // std::cout << "Setting " << vMemory << " to " << vValue << std::endl << std::endl;
+      std::cout << "p1 " << parts[0] << " p2 " << parts[1] << std::endl;
+      std::cout << "Setting " << vMemory << " to " << vValue << std::endl << std::endl;
       Register::SetMemoryAt(vMemory, vValue);
 
       return true;

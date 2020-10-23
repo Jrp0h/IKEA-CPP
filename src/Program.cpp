@@ -23,7 +23,6 @@ void Program::Load(const std::string &path) {
 }
 
 void Program::Run() {
-  ReadNextLine();
   while(ReadNextLine());
 }
 
@@ -36,28 +35,33 @@ bool Program::ReadNextLine() {
 
   if(line.find("FUN") == 0)
   {
-    if(m_IsInFunction)
+    if(m_IsInFunction || Callstack::Size() > 0)
         throw std::runtime_error("Tried declaring a function before closing another function. Nested functions are not allowed. " + ProgramFiles::LineinfoToString(linenr));
 
     m_IsInFunction = true;
-    // ReadNextLine();
     return true;
   }
 
   if(line.find("EFUN") == 0)
   {
-    if(!m_IsInFunction)
-      throw std::runtime_error("Tried closing a function before opening. " + ProgramFiles::LineinfoToString(linenr));
+    // If no function is called, then check validation
+    // else just act like RET
+    if(Callstack::Size() <= 0)
+    {
+      if(!m_IsInFunction)
+        throw std::runtime_error("Tried closing a function before opening. " + ProgramFiles::LineinfoToString(linenr));
 
-    m_IsInFunction = false;
-    // ReadNextLine();
-    return true;
+      m_IsInFunction = false;
+      return true;
+    }
+    else {
+      line = "RET";
+    }
   }
 
   // Skip empty lines and functionlines
   if(line == "" || m_IsInFunction)
   {
-    ReadNextLine();
     return true;
   }
 
@@ -65,7 +69,6 @@ bool Program::ReadNextLine() {
   {
     if(instruction->Parse(line, ProgramFiles::LineinfoFromRealline(linenr)))
     {
-      ReadNextLine();
       return true;
     }
   }
@@ -88,6 +91,7 @@ void Program::InitInstructions() {
   m_Instructions.push_back(std::move(new JMPIF("JMPF", false)));
   m_Instructions.push_back(std::move(new MOV()));
   m_Instructions.push_back(std::move(new VAR()));
+  m_Instructions.push_back(std::move(new PRNTM()));
 }
 
 void Program::AddInstruction(Instruction& instruction)
