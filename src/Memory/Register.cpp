@@ -73,25 +73,34 @@ namespace IKEA::Memory {
 
   void Register::PrintVars(){
     std::cout << std::endl << std::endl << "Variables" << std::endl;
-    for(auto var : m_Vars)
+    if(m_Vars.size() <= 0)
     {
-      std::cout << var.first << " &" << var.second.GetValue() << " ";
-      if(var.second.GetValue() >= 32)
-        std::cout << "Invalid Memory Address" << std::endl;
-      else
-        std::cout << "$" << m_Memory[var.second.GetValue()].GetValue() << std::endl;
+      std::cout << "NO VARIABLES SET" << std::endl;
+      return;
     }
 
-    if(m_Vars.size() <= 0)
-      std::cout << "NO VARIABLES SET" << std::endl;
+    std::cout << "Name:\t\tAddress:\tValue:" << std::endl; 
+    for(auto var : m_Vars)
+    {
+      std::cout << var.first << "\t\t&" << var.second.GetValue() << " ";
+      if(var.second.GetValue() >= 32)
+        std::cout << "\t\tInvalid Memory Address" << std::endl;
+      else
+        std::cout << "\t\t$" << m_Memory[var.second.GetValue()].GetValue() << std::endl;
+    }
+
 
   }
 
   void Register::PrintMemory(){
-    std::cout << std::endl << std::endl << "Variables" << std::endl;
+
+    std::cout << std::endl << std::endl << "Memory:" << std::endl;
+
+    std::cout << "Index:\tBinary:\t\t\tHex:\tDecimal:" << std::endl; 
     for(int i = 0; i < 32; i++)
     {
-      std::cout << "#" << i << " : " << m_Memory[i].ToBinaryString() << "(" << m_Memory[i].GetValue() << ")" << std::endl; 
+      std::cout << "#" << i << "\t" << m_Memory[i].ToBinaryString() << "\t" << m_Memory[i].ToHexString() << "\t" << m_Memory[i].GetValue() << std::endl; 
     }
+
   }
 }

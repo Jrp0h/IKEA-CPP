@@ -24,7 +24,7 @@ public:
 
 protected:
    bool ParseLine(std::vector<std::string> parts, Lineinfo lineinfo) override {
-      if(parts.size() < 2)
+      if(parts.size() < 2 || parts.size() > 3)
          throw InvalidArgumentCountException("Invalid argument count.", lineinfo);
 
       int vMemory = 0;
@@ -38,6 +38,8 @@ protected:
 
       int num2Part;
 
+      // arg1 -= arg2
+      // mem of arg1 = value of arg1 - value of arg2
       if(parts.size() == 2)
       {
          vNum1 = vMemory;

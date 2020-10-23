@@ -27,6 +27,7 @@ namespace IKEA {
       if(lines[i] == "")
         continue;
 
+      // Check if line is a section, if not, then check if it's a function
       if(!m_Sections.Parse(lines[i], ProgramFiles::LineinfoFromRealline(i)))
         m_Functions.Parse(lines[i], ProgramFiles::LineinfoFromRealline(i));
     }

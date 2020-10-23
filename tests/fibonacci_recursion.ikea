@@ -12,6 +12,9 @@ SEC loop:
    MOV &result, 0
    JMPF $i, 0, loop
 
+PRNTV
+PRNTM
+
 FUN fibonacci:
    JMPZ $x, one_or_zero
    JMPO $x, one_or_zero

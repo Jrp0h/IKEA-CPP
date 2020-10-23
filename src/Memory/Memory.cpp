@@ -1,6 +1,7 @@
 #include <math.h>
 #include <iostream>
 #include <sstream>
+#include <math.h>
 
 #include "Memory.h"
 
@@ -65,10 +66,33 @@ namespace IKEA::Memory {
 
   std::string Memory::ToBinaryString() {
     std::stringstream ss;
+
+    ss << "0b";
     
     for(int i = 0; i < 16; i++)
     {
       ss << m_Data[i];
+    }
+
+    return ss.str();
+  }
+
+  std::string Memory::ToHexString() {
+    std::stringstream ss;
+
+    ss << "0x";
+    
+    for(int i = 0; i < 4; i++)
+    {
+      int c = 0;
+
+      // TODO: FIX THIS SHIT
+      // IT IS NOT WORKING AS IT SHOULD!
+      for(int j = 0; j < 4; j++)
+      {
+        c += pow(2, j) * m_Data[i * 4 + j];
+      }
+      ss << m_HexChars[c];
     }
 
     return ss.str();

@@ -18,28 +18,30 @@ namespace IKEA {
       public:
          File(const std::string &path) {
             std::ifstream file(std::filesystem::current_path().concat("/" + path).c_str());
-        
+
+            // Try importing file 
             if (!file.is_open())
-               throw FileImportException("Failed loading file: " + path);
+               throw FileImportException("File Not Found. Failed loading file: " + path);
         
             m_Lines = std::vector<std::string>();
         
             std::string line;
-        
+            
+            // Add all line to a vector of lines
             while (!file.eof()) {
                std::getline(file, line);
         
                m_Lines.push_back(Str::Trim(line));
             }
         
-            m_Name = path;
+            m_Path = path;
          }
         
-         std::string GetName() { return m_Name; }
+         std::string GetPath() { return m_Path; }
          std::vector<std::string> GetLines() { return m_Lines; }
 
       private:
-         std::string m_Name;
+         std::string m_Path;
          std::vector<std::string> m_Lines;
       };
 }

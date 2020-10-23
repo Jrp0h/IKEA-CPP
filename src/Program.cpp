@@ -89,6 +89,9 @@ namespace IKEA {
   }
 
   void Program::InitInstructions() {
+    // Reset to avoid duplications
+    m_Instructions = std::vector<Instruction::Instruction*>();
+
     m_Instructions.push_back(std::move(new PRNT()));
     m_Instructions.push_back(std::move(new PRNTV()));
     m_Instructions.push_back(std::move(new PRNTM()));

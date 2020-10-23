@@ -16,6 +16,7 @@ namespace IKEA::Memory {
       int GetValue();
 
       std::string ToBinaryString();
+      std::string ToHexString();
 
       bool& operator[](const int i);
 
@@ -57,5 +58,7 @@ namespace IKEA::Memory {
 
     private:
       bool m_Data[16];
+
+      inline static char m_HexChars[17] = "0123456789ABCDEF";
   };
 }
