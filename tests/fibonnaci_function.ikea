@@ -7,7 +7,7 @@ FUN fibonnaci:
    VAR nt,#4
    VAR i,#5
 
-   MOV &n,10
+   MOV &n,15
    MOV &t2,1
 
    SEC loop:

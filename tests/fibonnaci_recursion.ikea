@@ -1,60 +1,34 @@
 VAR x,#0
-VAR result,#5
-VAR should_add,#7
-VAR tmp_should_add,#7
+VAR result,#1
+VAR i,#2
 
-MOV &x,15
+MOV &i,15
 
-CALL fibonacci
-PRNT $result
-
-PRNTV
-PRNTM
+SEC loop:
+   SUB &x, 15, $i 
+   DEC $i
+   CALL fibonacci
+   PRNT $result
+   MOV &result, 0
+   JMPF $i, 0, loop
 
 FUN fibonacci:
-
-   MOV &should_add,1
-   MOV &tmp_should_add,1
-
    JMPZ $x, one_or_zero
    JMPO $x, one_or_zero
    JMP else
 
    SEC one_or_zero:
       ADD &result, $result, $x
-      MOV &should_add,0
       RET
 
    SEC else:
-      ; fib(x-1)
       DEC $x
       CALL fibonacci
-      JMP add_one
-      ; MOV &tmp_should_add, $should_add
-      ; MOV &should_add, 1
-      ; JMPO $tmp_should_add, add_one
-      
-      SEC after_add_one:
-         ; fib(x-2)
-         SUB &x,2
-         CALL fibonacci
-         JMP add_two
-
-         ; MOV &tmp_should_add, $should_add
-         ; MOV &should_add, 1
-         ; JMPO $tmp_should_add, add_two
-
-      SEC after_add_two:
-         RET
-
-   SEC add_one:
       INC $x
-      MOV &should_add,1
-      JMP after_add_one
-
-   SEC add_two:
+      
+      SUB &x,2
+      CALL fibonacci
       ADD &x,2
-      MOV &should_add,1
-      JMP after_add_two
 
+      RET
 EFUN

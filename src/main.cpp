@@ -28,5 +28,4 @@ int main(int argc, char** argv)
 
    IKEA::Program::Load(file);
    IKEA::Program::Run();
-   std::cout << "cs: " << IKEA::Callstack::Size() << std::endl;
 }
