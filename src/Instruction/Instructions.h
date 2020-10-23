@@ -13,3 +13,11 @@
 
 #include "INC.h"
 #include "DEC.h"
+#include "ADD.h"
+#include "SUB.h"
+
+#include "AND.h"
+#include "OR.h"
+#include "XOR.h"
+
+#include "ROTATE.h"

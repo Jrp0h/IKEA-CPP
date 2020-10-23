@@ -8,13 +8,17 @@
 #include "Lineinfo.h"
 #include "Memory/Register.h"
 
-class PRNTM : public Instruction {
-public:
-   PRNTM() : Instruction("PRNTM") { }
+using namespace IKEA::Memory;
 
-protected:
-   bool ParseLine(std::vector<std::string> parts, Lineinfo lineinfo) override {
-      Register::PrintMemory();
-      return true;
-   }
-};
+namespace IKEA::Instruction {
+   class PRNTM : public Instruction {
+      public:
+         PRNTM() : Instruction("PRNTM") { }
+
+      protected:
+         bool ParseLine(std::vector<std::string> parts, Lineinfo lineinfo) override {
+            Register::PrintMemory();
+            return true;
+         }
+   };
+}

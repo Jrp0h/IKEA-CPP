@@ -25,7 +25,7 @@ int main(int argc, char** argv)
    std::cout << "Loading file: " << file << std::endl << std::endl;
 #endif
 
-   Program::Load(file);
-   Program::Run();
-   Register::PrintVars();
+   IKEA::Program::Load(file);
+   IKEA::Program::Run();
+   IKEA::Memory::Register::PrintVars();
 }

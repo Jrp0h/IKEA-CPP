@@ -11,18 +11,20 @@
 
 #include "Callstack.h"
 
-class CALL : public Instruction {
-public:
-   CALL() : Instruction("CALL") { }
+namespace IKEA::Instruction {
+   class CALL : public Instruction {
+   public:
+      CALL() : Instruction("CALL") { }
 
-protected:
-   bool ParseLine(std::vector<std::string> parts, Lineinfo lineinfo) override {
-      if(parts.size() != 1)
-         throw std::runtime_error("Invalid argument length at " + ProgramFiles::LineinfoToString(lineinfo));
+   protected:
+      bool ParseLine(std::vector<std::string> parts, Lineinfo lineinfo) override {
+         if(parts.size() != 1)
+            throw std::runtime_error("Invalid argument length at " + ProgramFiles::LineinfoToString(lineinfo));
 
-      ProgramState::SetNextLine(ProgramState::GetFunctionLocation(parts[0], lineinfo) + 1);
-      Callstack::Push(lineinfo.m_RealLine + 1);
+         ProgramState::SetNextLine(ProgramState::GetFunctionLocation(parts[0], lineinfo) + 1);
+         Callstack::Push(lineinfo.m_RealLine + 1);
 
-      return true;
-   }
-};
+         return true;
+      }
+   };
+}

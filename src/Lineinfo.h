@@ -1,5 +1,6 @@
 #pragma once
 
+namespace IKEA {
 class Lineinfo {
 public:
    Lineinfo(int fileIndex, int fileLine, int realLine) 
@@ -13,3 +14,4 @@ public:
    int m_FileLine;
    int m_RealLine;
 };
+}

@@ -7,58 +7,62 @@
 #include "Memory/Register.h"
 #include "ProgramFiles.h"
 
-enum class ValueType { VAR, VAR_VALUE, DIRECT, PLAIN };
+using namespace IKEA::Memory;
 
-class ValueParser {
-public:
-  static ValueType Parse(std::string arg, int& value, Lineinfo lineinfo, bool asPlain = false)
-  {
-    Str::Trim(arg);
+namespace IKEA {
+  enum class ValueType { VAR, VAR_VALUE, DIRECT, PLAIN };
 
-    if(arg.find("&") == 0)
+  class ValueParser {
+  public:
+    static ValueType Parse(std::string arg, int& value, Lineinfo lineinfo, bool asPlain = false)
     {
-      arg = arg.erase(0, 1);
-      value = Register::GetVar(arg).GetValue();
-      return ValueType::VAR;
-    }
-    else if(arg.find("$") == 0)
-    {
-      arg = arg.erase(0, 1);
-      value = Register::GetVar(arg).GetValue();
+      Str::Trim(arg);
 
-      if(value >= 32)
-        throw std::runtime_error(arg + " is not a valid memory address. 0 - 31 is valid. " + ProgramFiles::LineinfoToString(lineinfo));
+      if(arg.find("&") == 0)
+      {
+        arg = arg.erase(0, 1);
+        value = Register::GetVar(arg).GetValue();
+        return ValueType::VAR;
+      }
+      else if(arg.find("$") == 0)
+      {
+        arg = arg.erase(0, 1);
+        value = Register::GetVar(arg).GetValue();
 
-      value = Register::GetMemoryAt(value).GetValue();
-      return ValueType::VAR_VALUE;
-    }
-    else if(arg.find("#") == 0)
-    {
-      arg = arg.erase(0, 1);
-      try {
-        value = std::stoi(arg);
-
-        if(asPlain)
-          return ValueType::DIRECT;
+        if(value >= 32)
+          throw std::runtime_error(arg + " is not a valid memory address. 0 - 31 is valid. " + ProgramFiles::LineinfoToString(lineinfo));
 
         value = Register::GetMemoryAt(value).GetValue();
-        return ValueType::DIRECT;
+        return ValueType::VAR_VALUE;
       }
-      catch(const std::exception& e)
+      else if(arg.find("#") == 0)
       {
-        throw std::runtime_error(arg + " is not a valid memory address. 0 - 31 is valid. " + ProgramFiles::LineinfoToString(lineinfo));
+        arg = arg.erase(0, 1);
+        try {
+          value = std::stoi(arg);
+
+          if(asPlain)
+            return ValueType::DIRECT;
+
+          value = Register::GetMemoryAt(value).GetValue();
+          return ValueType::DIRECT;
+        }
+        catch(const std::exception& e)
+        {
+          throw std::runtime_error(arg + " is not a valid memory address. 0 - 31 is valid. " + ProgramFiles::LineinfoToString(lineinfo));
+        }
+      }
+      else {
+        try {
+          value = std::stoi(arg);
+          return ValueType::PLAIN;
+        }
+        catch(const std::exception& e)
+        {
+          std::cout << e.what() << std::endl;
+          throw std::runtime_error(arg + " is not a valid number. " + ProgramFiles::LineinfoToString(lineinfo));
+        }
       }
     }
-    else {
-      try {
-        value = std::stoi(arg);
-        return ValueType::PLAIN;
-      }
-      catch(const std::exception& e)
-      {
-        std::cout << e.what() << std::endl;
-        throw std::runtime_error(arg + " is not a valid number. " + ProgramFiles::LineinfoToString(lineinfo));
-      }
-    }
-  }
-};
+  };
+}

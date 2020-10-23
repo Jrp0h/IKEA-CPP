@@ -12,26 +12,28 @@
 
 #include "Callstack.h"
 
-class MOV : public Instruction {
-public:
-   MOV() : Instruction("MOV") { }
+namespace IKEA::Instruction {
+   class MOV : public Instruction {
+   public:
+      MOV() : Instruction("MOV") { }
 
-protected:
-   bool ParseLine(std::vector<std::string> parts, Lineinfo lineinfo) override {
-      if(parts.size() != 2)
-         throw std::runtime_error("Invalid argument length at " + ProgramFiles::LineinfoToString(lineinfo));
+   protected:
+      bool ParseLine(std::vector<std::string> parts, Lineinfo lineinfo) override {
+         if(parts.size() != 2)
+            throw std::runtime_error("Invalid argument length at " + ProgramFiles::LineinfoToString(lineinfo));
 
-      int vMemory = 0;
-      int vValue = 0;
+         int vMemory = 0;
+         int vValue = 0;
 
-      ValueType vtMemory = ValueParser::Parse(parts[0], vMemory, lineinfo, true);
-      ValueType vtValue = ValueParser::Parse(parts[1], vValue, lineinfo);
+         ValueType vtMemory = ValueParser::Parse(parts[0], vMemory, lineinfo, true);
+         ValueType vtValue = ValueParser::Parse(parts[1], vValue, lineinfo);
 
-      if(vtMemory == ValueType::PLAIN)
-         throw std::runtime_error("Memory address cant be Plain, requires # before number" + ProgramFiles::LineinfoToString(lineinfo));
+         if(vtMemory == ValueType::PLAIN)
+            throw std::runtime_error("Memory address cant be Plain, requires # before number" + ProgramFiles::LineinfoToString(lineinfo));
 
-      Register::SetMemoryAt(vMemory, vValue);
+         Register::SetMemoryAt(vMemory, vValue);
 
-      return true;
-   }
-};
+         return true;
+      }
+   };
+}

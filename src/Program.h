@@ -7,20 +7,24 @@
 #include "Lineinfo.h"
 #include "Instruction/Instruction.h"
 
-class Program {
-public:
-   static void Load(const std::string &file);
-   static void Run();
+using namespace IKEA::Instruction;
 
-   
-   static void AddInstruction(Instruction& instruction);
+namespace IKEA {
+  class Program {
+    public:
+       static void Load(const std::string &file);
+       static void Run();
 
-private:
-   static void FindSegments();
-   static void InitInstructions();
+       
+       static void AddInstruction(Instruction::Instruction& instruction);
 
-   static bool ReadNextLine();
-private:
-   inline static std::vector<Instruction*> m_Instructions;
-  inline static bool m_IsInFunction = false;
-};
+    private:
+       static void FindSegments();
+       static void InitInstructions();
+
+       static bool ReadNextLine();
+    private:
+       inline static std::vector<Instruction::Instruction*> m_Instructions;
+       inline static bool m_IsInFunction = false;
+  };
+}

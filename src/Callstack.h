@@ -6,6 +6,8 @@
 #include "ProgramFiles.h"
 #include "ProgramState.h"
 
+namespace IKEA {
+
 class Callstack {
    public:
       static void Push(int line) { 
@@ -40,3 +42,4 @@ class Callstack {
    private:
       inline static std::vector<int> m_LastLines;
 };
+}

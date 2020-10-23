@@ -7,8 +7,7 @@
 #include "Lineinfo.h"
 #include "ProgramFiles.h"
 
-class ProgramState;
-
+namespace IKEA::Instruction {
 class Segment : public Instruction {
 public:
    Segment(std::string tag, std::string type) : Instruction(tag), m_Type(type)  {}
@@ -53,3 +52,4 @@ private:
    std::string m_Type;
    std::map<std::string, int> m_Locations;
 };
+}

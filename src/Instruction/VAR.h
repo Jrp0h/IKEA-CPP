@@ -12,6 +12,8 @@
 
 #include "Callstack.h"
 
+namespace IKEA::Instruction {
+
 class VAR : public Instruction {
 public:
    VAR() : Instruction("VAR") { }
@@ -30,3 +32,4 @@ protected:
       return true;
    }
 };
+}

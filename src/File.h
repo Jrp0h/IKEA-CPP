@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "Str.h"
+namespace IKEA {
 
 class File {
 public:
@@ -37,3 +38,4 @@ private:
    std::string m_Name;
    std::vector<std::string> m_Lines;
 };
+}

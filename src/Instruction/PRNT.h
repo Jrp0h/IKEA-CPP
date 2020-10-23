@@ -7,6 +7,7 @@
 #include "Instruction/Instruction.h"
 #include "Lineinfo.h"
 
+namespace IKEA::Instruction {
 class PRNT : public Instruction {
 public:
    PRNT() : Instruction("PRNT") { }
@@ -19,3 +20,4 @@ protected:
       return true;
    }
 };
+}

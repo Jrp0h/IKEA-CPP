@@ -11,6 +11,8 @@
 
 #include "Callstack.h"
 
+namespace IKEA::Instruction {
+
 class RET : public Instruction {
 public:
    RET() : Instruction("RET") { }
@@ -23,3 +25,4 @@ protected:
 
    }
 };
+}
