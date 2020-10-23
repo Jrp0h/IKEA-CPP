@@ -25,7 +25,6 @@ namespace IKEA::Memory {
   }
 
   void Memory::SetValue(int value){
-    // std::cout << "Value: " << value << std::endl;
     bool isNegative = value < 0;
     
     if(isNegative)

@@ -7,7 +7,11 @@
 #include "Memory/Register.h"
 #include "ProgramFiles.h"
 
+#include "Exception/MemoryOutOfRangeException.h"
+#include "Exception/NotANumberException.h"
+
 using namespace IKEA::Memory;
+using namespace IKEA::Exception;
 
 namespace IKEA {
   enum class ValueType { VAR, VAR_VALUE, DIRECT, PLAIN };
@@ -40,7 +44,7 @@ namespace IKEA {
         value = Register::GetVar(arg).GetValue();
 
         if(value >= 32)
-          throw std::runtime_error(arg + " is not a valid memory address. 0 - 31 is valid. " + ProgramFiles::LineinfoToString(lineinfo));
+          throw MemoryOutOfRangeException(arg + " is not a valid memory address. 0-31 is valid.", lineinfo);
 
         value = Register::GetMemoryAt(value).GetValue();
         return ValueType::VAR_VALUE;
@@ -51,6 +55,9 @@ namespace IKEA {
         try {
           value = std::stoi(arg);
 
+          if(value >= 32)
+            throw MemoryOutOfRangeException(arg + " is not a valid memory address. 0-31 is valid.", lineinfo);
+
           if(asPlain)
             return ValueType::DIRECT;
 
@@ -59,7 +66,7 @@ namespace IKEA {
         }
         catch(const std::exception& e)
         {
-          throw std::runtime_error(arg + " is not a valid memory address. 0 - 31 is valid. " + ProgramFiles::LineinfoToString(lineinfo));
+          throw MemoryOutOfRangeException(arg + " is not a valid memory address. 0-31 is valid.", lineinfo);
         }
       }
       else {
@@ -75,7 +82,7 @@ namespace IKEA {
         catch(const std::exception& e)
         {
           std::cout << e.what() << std::endl;
-          throw std::runtime_error(arg + " is not a valid number. " + ProgramFiles::LineinfoToString(lineinfo));
+          throw NotANumberException(arg + " is not a valid number.", lineinfo);
         }
       }
     }

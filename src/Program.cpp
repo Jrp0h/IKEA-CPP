@@ -12,8 +12,13 @@
 
 #include "Instruction/Instructions.h"
 
+#include "Exception/InvalidSyntaxException.h"
+#include "Exception/UnknownInstructionException.h"
+
+
 using namespace IKEA::Instruction;
 using namespace IKEA::Memory;
+using namespace IKEA::Exception;
 
 namespace IKEA {
 
@@ -40,7 +45,7 @@ namespace IKEA {
     if(line.find("FUN") == 0)
     {
       if(m_IsInFunction || Callstack::Size() > 0)
-          throw std::runtime_error("Tried declaring a function before closing another function. Nested functions are not allowed. " + ProgramFiles::LineinfoToString(linenr));
+          throw InvalidSyntaxException("Tried declaring a function before closing another function. Nested functions are not allowed.", ProgramFiles::LineinfoFromRealline(linenr));
 
       m_IsInFunction = true;
       return true;
@@ -53,7 +58,7 @@ namespace IKEA {
       if(Callstack::Size() <= 0)
       {
         if(!m_IsInFunction)
-          throw std::runtime_error("Tried closing a function before opening. " + ProgramFiles::LineinfoToString(linenr));
+          throw InvalidSyntaxException("Tried closing a function before opening.", ProgramFiles::LineinfoFromRealline(linenr));
 
         m_IsInFunction = false;
         return true;
@@ -78,7 +83,7 @@ namespace IKEA {
     }
 
     if(line.find("SEC") != 0)
-        throw std::runtime_error("Unparseable line. " + ProgramFiles::LineinfoToString(linenr));
+        throw UnknownInstructionException("Unparseable line.", ProgramFiles::LineinfoFromRealline(linenr));
 
     return true;
   }

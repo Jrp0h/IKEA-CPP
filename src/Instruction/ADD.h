@@ -12,6 +12,11 @@
 
 #include "Callstack.h"
 
+#include "Exception/InvalidArgumentCountException.h"
+#include "Exception/InvalidSyntaxException.h"
+
+using namespace IKEA::Exception;
+
 namespace IKEA::Instruction {
 
    class ADD : public Instruction {
@@ -21,13 +26,13 @@ namespace IKEA::Instruction {
       protected:
          bool ParseLine(std::vector<std::string> parts, Lineinfo lineinfo) override {
             if(parts.size() < 2)
-               throw std::runtime_error("Invalid argument length at " + ProgramFiles::LineinfoToString(lineinfo));
+               throw InvalidArgumentCountException("Invalid argument count.", lineinfo);
 
             int vMemory = 0;
             ValueType vtMemory = ValueParser::Parse(parts[0], vMemory, lineinfo, true);
 
             if(vtMemory == ValueType::PLAIN)
-               throw std::runtime_error("Memory address cant be Plain, requires # before number" + ProgramFiles::LineinfoToString(lineinfo));
+               throw InvalidSyntaxException("Memory address can't be plain, requires # before number.", lineinfo);
 
             int vNum1 = 0;
 

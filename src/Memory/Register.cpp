@@ -5,6 +5,11 @@
 #include "ProgramFiles.h"
 #include "ProgramState.h"
 
+#include "Exception/MemoryOutOfRangeException.h"
+#include "Exception/UndeclaredVariableException.h"
+
+using namespace IKEA::Exception;
+
 namespace IKEA::Memory {
   void Register::Initialize()
   {
@@ -19,35 +24,35 @@ namespace IKEA::Memory {
 
   void Register::SetMemoryAt(int slot, int value) {
     if(slot >= m_Memory.size())
-      throw std::runtime_error("Cannot access memory " + std::to_string(slot) + ". Max is 32");
+      throw MemoryOutOfRangeException("Can't access memory " + std::to_string(slot) + ". 0-31 is valid.", ProgramFiles::LineinfoFromRealline(ProgramState::GetCurrentLine()));
 
     m_Memory[slot].SetValue(value);
   }
 
   void Register::SetMemoryAt(int slot, bool value[16]) {
     if(slot >= m_Memory.size())
-      throw std::runtime_error("Cannot access memory " + std::to_string(slot) + ". Max is 32");
+      throw MemoryOutOfRangeException("Can't access memory " + std::to_string(slot) + ". 0-31 is valid.", ProgramFiles::LineinfoFromRealline(ProgramState::GetCurrentLine()));
 
     m_Memory[slot].SetValue(value);
   }
 
   void Register::SetMemoryAt(int slot, Memory value) {
     if(slot >= m_Memory.size())
-      throw std::runtime_error("Cannot access memory " + std::to_string(slot) + ". Max is 32");
+      throw MemoryOutOfRangeException("Can't access memory " + std::to_string(slot) + ". 0-31 is valid.", ProgramFiles::LineinfoFromRealline(ProgramState::GetCurrentLine()));
 
     m_Memory[slot] = value;
   }
 
   Memory& Register::GetMemoryAt(int slot) {
     if(slot >= m_Memory.size())
-      throw std::runtime_error("Cannot access memory " + std::to_string(slot) + ". Max is 32");
+      throw MemoryOutOfRangeException("Can't access memory " + std::to_string(slot) + ". 0-31 is valid.", ProgramFiles::LineinfoFromRealline(ProgramState::GetCurrentLine()));
 
     return m_Memory[slot];
   }
 
   Memory& Register::GetVar(std::string name){
     if(m_Vars.find(name) == m_Vars.end())
-      throw std::runtime_error("Undeclared var " + name + " at " + ProgramFiles::LineinfoToString(ProgramState::GetCurrentLine()));
+      throw UndeclaredVariableException("Undeclared var " + name + ".", ProgramFiles::LineinfoFromRealline(ProgramState::GetCurrentLine()));
 
     return m_Vars[name];
   }

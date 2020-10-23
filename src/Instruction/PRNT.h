@@ -9,6 +9,11 @@
 #include "ProgramFiles.h"
 #include "ValueParser.h"
 
+#include "Exception/InvalidArgumentCountException.h"
+#include "Exception/InvalidSyntaxException.h"
+
+using namespace IKEA::Exception;
+
 namespace IKEA::Instruction {
    class PRNT : public Instruction {
    public:
@@ -22,7 +27,7 @@ namespace IKEA::Instruction {
          }
 
          if(parts.size() != 1)
-            throw std::runtime_error("Invalid argument length at " + ProgramFiles::LineinfoToString(lineinfo));
+            throw InvalidArgumentCountException("Invalid argument count.", lineinfo);
 
            
          int value;

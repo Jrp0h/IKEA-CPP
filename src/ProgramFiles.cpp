@@ -2,6 +2,11 @@
 
 #include "Str.h"
 
+#include "Exception/InvalidArgumentCountException.h"
+#include "Exception/CircularImportException.h"
+
+using namespace IKEA::Exception;
+
 namespace IKEA {
   void ProgramFiles::Load(const std::string &path) {
     File f(path);
@@ -16,13 +21,6 @@ namespace IKEA {
 
     while(Import());
     Clean();
-
-  // #if IKEA_DEBUG
-    // for(auto line : m_RealLines)
-    // {
-      // std::cout << line << std::endl;
-    // }
-  // #endif
   }
 
   bool ProgramFiles::Import() {
@@ -32,9 +30,8 @@ namespace IKEA {
         std::string path = m_RealLines[i].substr(m_RealLines[i].find(" ") + 1);
         Str::Trim(path);
 
-        if (path == "")
-          throw std::runtime_error("Missing arguments in " +
-                                   LineinfoToString(LineinfoFromRealline(i)));
+        if (path == "IMP")
+          throw InvalidArgumentCountException("Missing arguments.", LineinfoFromRealline(i));
 
         // Remove opening "
         if (path.find("\"") == 0)
@@ -44,8 +41,14 @@ namespace IKEA {
         if (path.find("\"") == path.length() - 1)
           path = path.erase(path.length() - 1);
 
+        for(auto file : m_Files)
+        {
+          if(file.GetName() == path) {
+            throw CircularImportException("Circular import not allowed. " + path + " is already imported.", LineinfoFromRealline(i));
+            std::cout << "Circular" << std::endl;
+          }
+        }
         File f(path);
-
 
         InsertLines(i, f.GetLines(), m_Files.size());
 
@@ -106,7 +109,7 @@ namespace IKEA {
 
   std::string ProgramFiles::LineinfoToString(Lineinfo lineinfo) {
     std::stringstream ss;
-    ss << std::endl << "File: " << m_Files[lineinfo.m_FileIndex].GetName() << " at line "
+    ss << std::endl << std::endl << "File: " << m_Files[lineinfo.m_FileIndex].GetName() << " at line "
        << lineinfo.m_FileLine << std::endl;
 
       ss << lineinfo.m_FileLine << " | " << m_RealLines[lineinfo.m_RealLine] << std::endl;

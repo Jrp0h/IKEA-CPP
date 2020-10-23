@@ -8,6 +8,10 @@
 #include "Lineinfo.h"
 #include "ProgramFiles.h"
 #include "Str.h"
+#include "Exception/InvalidArgumentCountException.h"
+#include "Exception/InvalidSyntaxException.h"
+
+using namespace IKEA::Exception;
 
 namespace IKEA::Instruction {
   class Instruction {
@@ -25,7 +29,8 @@ namespace IKEA::Instruction {
       if(instruction != m_Tag)
       {
         if(instruction == m_Tag + ":")
-          throw std::runtime_error("Invalid syntax. " + ProgramFiles::LineinfoToString(lineinfo));
+          throw InvalidSyntaxException("Invalid syntax. You have a missplaces ':'. ", lineinfo);
+
         return false;
       }
 

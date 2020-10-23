@@ -9,6 +9,12 @@
 #include "ProgramState.h"
 #include "ValueParser.h"
 
+#include "Exception/InvalidArgumentCountException.h"
+#include "Exception/InvalidSyntaxException.h"
+#include "Exception/UnnecesseryComparisonException.h"
+
+using namespace IKEA::Exception;
+
 namespace IKEA::Instruction {
    class JMPIF : public Instruction {
    public:
@@ -17,7 +23,7 @@ namespace IKEA::Instruction {
    protected:
       bool ParseLine(std::vector<std::string> parts, Lineinfo lineinfo) override {
          if(parts.size() != 3)
-            throw std::runtime_error("Invalid argument length at " + ProgramFiles::LineinfoToString(lineinfo));
+            throw InvalidArgumentCountException("Invalid argument count.", lineinfo);
 
          int value1;
          int value2;
@@ -28,9 +34,9 @@ namespace IKEA::Instruction {
          if(vt1 == ValueType::PLAIN && vt1 == ValueType::PLAIN)
          {
             if(value1 == value2)
-               throw std::runtime_error("Always true, use JMP insted." + ProgramFiles::LineinfoToString(lineinfo));
+               throw UnnecessaryComparisonException("Always true, use JMP insted.", lineinfo);
             else 
-               throw std::runtime_error("Always false, remove." + ProgramFiles::LineinfoToString(lineinfo));
+               throw UnnecessaryComparisonException("Always false, remove.", lineinfo);
          }
 
          if((value1 == value2) == m_Value)

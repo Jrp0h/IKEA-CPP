@@ -6,6 +6,10 @@
 #include "ProgramFiles.h"
 #include "ProgramState.h"
 
+#include "Exception/TopLevelReturnException.h"
+
+using namespace IKEA::Exception;
+
 namespace IKEA {
 
 class Callstack {
@@ -23,7 +27,7 @@ class Callstack {
 
       static int Pop() { 
          if(m_LastLines.size() <= 0)
-            throw std::runtime_error("Can't return from base. " + ProgramFiles::LineinfoToString(ProgramState::GetCurrentLine()));
+            throw TopLevelReturnException("Can't return from top level.", ProgramFiles::LineinfoFromRealline(ProgramState::GetCurrentLine()));
 
          int line = m_LastLines[m_LastLines.size() - 1];
          m_LastLines.pop_back();

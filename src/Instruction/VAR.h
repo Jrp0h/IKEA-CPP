@@ -12,6 +12,11 @@
 
 #include "Callstack.h"
 
+#include "Exception/InvalidArgumentCountException.h"
+#include "Exception/InvalidSyntaxException.h"
+
+using namespace IKEA::Exception;
+
 namespace IKEA::Instruction {
 
 class VAR : public Instruction {
@@ -21,7 +26,7 @@ public:
 protected:
    bool ParseLine(std::vector<std::string> parts, Lineinfo lineinfo) override {
       if(parts.size() != 2)
-         throw std::runtime_error("Invalid argument length at " + ProgramFiles::LineinfoToString(lineinfo));
+         throw InvalidArgumentCountException("Invalid argument count.", lineinfo);
 
       int vValue = 0;
 
