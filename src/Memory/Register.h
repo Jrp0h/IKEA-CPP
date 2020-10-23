@@ -19,6 +19,7 @@ namespace IKEA::Memory {
 
       static Memory& GetVar(std::string name);
       static void SetVar(std::string name, int value);
+      static void SetVar(std::string name, Memory value);
 
       static void PrintVars();
       static void PrintMemory();

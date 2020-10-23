@@ -38,8 +38,6 @@ namespace IKEA::Memory {
       m_Data[16 - 1 - i] = (value % 2) == 1;
       value = (int)floor((float)value / 2.0f);
     }
-
-    // std::cout << "sum: " << GetValue() << std::endl;
   }
 
   void Memory::SetValue(bool value[16]) {

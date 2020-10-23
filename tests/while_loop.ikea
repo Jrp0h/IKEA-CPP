@@ -1,0 +1,15 @@
+MOV #1,5
+
+VAR i,#1
+
+JMPF $i,0,loop
+JMP after
+
+SEC loop:
+  PRNT $i
+  DEC $i
+  JMPF $i,0,loop
+  JMP after
+
+SEC after:
+  PRNT Out of the Loop

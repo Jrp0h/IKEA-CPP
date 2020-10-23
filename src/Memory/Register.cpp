@@ -59,6 +59,13 @@ namespace IKEA::Memory {
       m_Vars[name] = Memory(value);
   }
 
+  void Register::SetVar(std::string name, Memory value) {
+    if(m_Vars.find(name) == m_Vars.end())
+      m_Vars.insert(std::make_pair(name, value));
+    else
+      m_Vars[name] = value;
+  }
+
   void Register::PrintVars(){
     std::cout << std::endl << std::endl << "Variables" << std::endl;
     for(auto var : m_Vars)

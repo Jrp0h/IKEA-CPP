@@ -14,7 +14,17 @@ namespace IKEA {
 
   class ValueParser {
   public:
-    static ValueType Parse(std::string arg, int& value, Lineinfo lineinfo, bool asPlain = false)
+    static int GetMemoryLocationFromVar(std::string arg) {
+
+      Str::Trim(arg);
+
+      if(arg.find("&") == 0 || arg.find("$") == 0)
+        arg = arg.erase(0, 1);
+      
+      return Register::GetVar(arg).GetValue();
+    }
+
+    static ValueType Parse(std::string arg, int& value, Lineinfo lineinfo, bool asPlain = false, bool string = false)
     {
       Str::Trim(arg);
 
@@ -54,6 +64,11 @@ namespace IKEA {
       }
       else {
         try {
+          if(string)
+          {
+            value = 0;
+            return ValueType::PLAIN;
+          }
           value = std::stoi(arg);
           return ValueType::PLAIN;
         }

@@ -30,19 +30,23 @@ namespace IKEA::Instruction {
                throw std::runtime_error("Memory address cant be Plain, requires # before number" + ProgramFiles::LineinfoToString(lineinfo));
 
             int vNum1 = 0;
-            ValueType vtNum1;
 
             int num2Part;
 
             if(parts.size() == 2)
             {
                vNum1 = vMemory;
-               vtNum1 = vtMemory;
+
+               if(vtMemory == ValueType::VAR)
+               {
+                  vNum1 = Register::GetMemoryAt(vMemory).GetValue();
+               }
+
                num2Part = 1;
             }
             else if(parts.size() == 3)
             {
-               vtNum1 = ValueParser::Parse(parts[1], vNum1, lineinfo);
+               ValueParser::Parse(parts[1], vNum1, lineinfo);
                num2Part = 2;
             }
 

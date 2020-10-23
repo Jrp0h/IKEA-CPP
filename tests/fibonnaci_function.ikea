@@ -1,0 +1,38 @@
+CALL fibonnaci
+
+FUN fibonnaci:
+   VAR n,#1
+   VAR t1,#2
+   VAR t2,#3
+   VAR nt,#4
+   VAR i,#5
+
+   MOV &n,10
+   MOV &t2,1
+
+   SEC loop:
+      JMPZ $i,isOne
+      JMPO $i,isTwo
+
+      ADD &nt,$t1,$t2
+
+      PRNT $nt
+
+      MOV &t1,$t2
+      MOV &t2,$nt
+
+      JMP validate
+
+   SEC isOne:
+      PRNT $t1
+      JMP validate
+
+   SEC isTwo:
+      PRNT $t2
+      JMP validate
+
+   SEC validate:
+      INC $i
+      JMPF $i,$n,loop
+      RET
+EFUN

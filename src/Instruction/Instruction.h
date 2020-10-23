@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "Lineinfo.h"
+#include "ProgramFiles.h"
 #include "Str.h"
 
 namespace IKEA::Instruction {
@@ -22,7 +23,11 @@ namespace IKEA::Instruction {
       std::string argLine = line.substr(pos + 1);
 
       if(instruction != m_Tag)
+      {
+        if(instruction == m_Tag + ":")
+          throw std::runtime_error("Invalid syntax. " + ProgramFiles::LineinfoToString(lineinfo));
         return false;
+      }
 
       std::vector<std::string> args;
 

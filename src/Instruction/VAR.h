@@ -25,7 +25,7 @@ protected:
 
       int vValue = 0;
 
-      ValueType vtValue = ValueParser::Parse(parts[1], vValue, lineinfo);
+      ValueType vtValue = ValueParser::Parse(parts[1], vValue, lineinfo, true);
 
       Register::SetVar(parts[0], vValue);
 

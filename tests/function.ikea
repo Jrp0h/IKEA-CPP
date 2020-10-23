@@ -1,0 +1,5 @@
+CALL sayHello
+
+FUN sayHello:
+  PRNT hello
+EFUN

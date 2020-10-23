@@ -15,6 +15,12 @@ public:
    File(const std::string &path) {
       std::ifstream file(std::filesystem::current_path().concat("/" + path).c_str());
   
+      for(auto file : m_LoadedFiles)
+      {
+         if(file == path)
+            throw std::runtime_error("Circular Import not allowed. " + path + " is already imported");
+      }
+
       if (!file.is_open())
         throw std::runtime_error(std::string("Failed loading file: " + path).c_str());
   
@@ -37,5 +43,7 @@ public:
 private:
    std::string m_Name;
    std::vector<std::string> m_Lines;
+
+   inline static std::vector<std::string> m_LoadedFiles;
 };
 }

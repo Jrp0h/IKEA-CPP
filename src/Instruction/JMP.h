@@ -18,7 +18,7 @@ namespace IKEA::Instruction {
       bool ParseLine(std::vector<std::string> parts, Lineinfo lineinfo) override {
          if(parts.size() != 1)
             throw std::runtime_error("Invalid argument length at " + ProgramFiles::LineinfoToString(lineinfo));
-
+         
          ProgramState::SetNextLine(ProgramState::GetSectionLocation(parts[0], lineinfo) + 1);
 
          return true;

@@ -27,5 +27,4 @@ int main(int argc, char** argv)
 
    IKEA::Program::Load(file);
    IKEA::Program::Run();
-   IKEA::Memory::Register::PrintVars();
 }

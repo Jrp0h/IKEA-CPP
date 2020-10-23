@@ -1,0 +1,20 @@
+MOV #1,18
+
+VAR age,#1
+
+JMPT $age,18,eighteen
+JMPT $age,20,twenty
+JMP neither
+
+SEC eighteen:
+  PRNT You can drink!
+  JMP ac
+SEC twenty:
+  PRNT You are getting old
+  JMP ac
+SEC neither:
+  PRNT greater than and less than?
+  JMP ac
+
+SEC ac:
+  PRNT after comparisons

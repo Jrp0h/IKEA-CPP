@@ -1,0 +1,7 @@
+MOV #1,19
+
+VAR age,#1
+INC &age
+
+PRNT &age
+PRNT $age
