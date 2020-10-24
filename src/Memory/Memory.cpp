@@ -86,8 +86,6 @@ namespace IKEA::Memory {
     {
       int c = 0;
 
-      // TODO: FIX THIS SHIT
-      // IT IS NOT WORKING AS IT SHOULD!
       for(int j = 0; j < 4; j++)
       {
         c += pow(2, 3 - j) * m_Data[i * 4 + j];
@@ -101,7 +99,6 @@ namespace IKEA::Memory {
   Memory Memory::FromBinaryString(const std::string& string){
     Memory mem;
 
-    // TODO: Add validation for numbers containing more than 16 chars
     if(string.size() > 16)
         throw std::runtime_error("Binary number can have a maximum of 16 bits");
 
@@ -122,7 +119,6 @@ namespace IKEA::Memory {
   {
     Memory mem;
 
-    // TODO: Add validation for numbers containing more than 16 chars
     if(string.size() > 4)
         throw std::runtime_error("Hex number can have a maximum of 4 chars");
 

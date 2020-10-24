@@ -1,4 +1,5 @@
-
 MOV #0, 0b111100 
+MOV #1, 0x3C 
+MOV #2, 60 
 
 PRNTM

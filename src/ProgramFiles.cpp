@@ -155,7 +155,6 @@ namespace IKEA {
 
   std::string ProgramFiles::GetRealLine(int linenr) {
     
-    // TODO: Custom exceptions
     if(linenr >= m_RealLines.size())
       throw std::runtime_error("End of Program");
       
