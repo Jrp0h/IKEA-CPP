@@ -17,16 +17,16 @@
 using namespace IKEA::Exception;
 
 namespace IKEA::Instruction {
-   class DEC : public Instruction {
+   class ChangeONE : public Instruction {
    public:
-      DEC() : Instruction("DEC") { }
+      ChangeONE(std::string tag, bool isAdd) : Instruction(tag), m_IsAdd(isAdd) { }
 
    protected:
       bool ParseLine(std::vector<std::string> parts, Lineinfo lineinfo) override {
          if(parts.size() != 1)
             throw InvalidArgumentCountException("Invalid argument count.", lineinfo);
 
-         int vMemory;
+         Memory::Memory vMemory = 0;
 
          ValueType vtMemory = ValueParser::Parse(parts[0], vMemory, lineinfo, true);
 
@@ -48,13 +48,19 @@ namespace IKEA::Instruction {
          else if(vtMemory == ValueType::VAR)
          {
             auto varName = parts[0].erase(0, 1);
-            Register::SetVar(varName, Register::GetVar(varName) - 1);
+            Register::SetVar(varName, Register::GetVar(varName) + 1);
             return true;
          }
-         
-         Register::SetMemoryAt(vMemory, Register::GetMemoryAt(vMemory) - 1);
+         int amount = 1;
+
+         if(!m_IsAdd)
+            amount = -1;
+
+         Register::SetMemoryAt(vMemory.GetValue(), Register::GetMemoryAt(vMemory) + amount);
 
          return true;
       }
+   private:
+      bool m_IsAdd;
    };
 }

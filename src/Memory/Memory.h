@@ -18,6 +18,9 @@ namespace IKEA::Memory {
       std::string ToBinaryString();
       std::string ToHexString();
 
+      static Memory FromBinaryString(const std::string& string);
+      static Memory FromHexString(const std::string& string);
+
       bool& operator[](const int i);
 
       static Memory TwoCompliment(Memory& mem);
@@ -28,6 +31,7 @@ namespace IKEA::Memory {
       Memory ShiftLeft(int amount);
       Memory ShiftRight(int amount);
 
+
       static Memory Add(Memory& mem1, Memory& mem2);
       static Memory Subtract(Memory& mem1, Memory& mem2);
       static bool Equal(Memory& mem1, Memory& mem2);
@@ -35,6 +39,9 @@ namespace IKEA::Memory {
       static Memory AND(Memory& mem1, Memory& mem2);
       static Memory OR(Memory& mem1, Memory& mem2);
       static Memory XOR(Memory& mem1, Memory& mem2);
+
+      static bool GreaterThan(Memory& mem1, Memory& mem2);
+      static bool LessThan(Memory& mem1, Memory& mem2);
 
       Memory operator+(Memory& other);
       Memory operator+(int other);
@@ -44,6 +51,12 @@ namespace IKEA::Memory {
 
       bool operator==(Memory& other);
       bool operator!=(Memory& other);
+
+      bool operator>(Memory& other);
+      bool operator<(Memory& other);
+
+      bool operator>=(Memory& other);
+      bool operator<=(Memory& other);
 
       Memory operator&(Memory& other);
       Memory operator&(int other);

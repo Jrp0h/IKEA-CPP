@@ -30,13 +30,13 @@ namespace IKEA::Instruction {
             throw InvalidArgumentCountException("Invalid argument count.", lineinfo);
 
            
-         int value;
+         Memory::Memory value;
          ValueType vtValue = ValueParser::Parse(parts[0], value, lineinfo, false, true);
          
          if(vtValue == ValueType::PLAIN)
             std::cout << parts[0] << std::endl;
          else
-            std::cout << value << std::endl;
+            std::cout << value.GetValue() << std::endl;
 
          return true;
       }

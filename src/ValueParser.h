@@ -28,25 +28,25 @@ namespace IKEA {
       return Register::GetVar(arg).GetValue();
     }
 
-    static ValueType Parse(std::string arg, int& value, Lineinfo lineinfo, bool asPlain = false, bool string = false)
+    static ValueType Parse(std::string arg, Memory::Memory& value, Lineinfo lineinfo, bool asPlain = false, bool string = false)
     {
       Str::Trim(arg);
 
       if(arg.find("&") == 0)
       {
         arg = arg.erase(0, 1);
-        value = Register::GetVar(arg).GetValue();
+        value = Register::GetVar(arg);
         return ValueType::VAR;
       }
       else if(arg.find("$") == 0)
       {
         arg = arg.erase(0, 1);
-        value = Register::GetVar(arg).GetValue();
+        value = Register::GetVar(arg);
 
-        if(value >= 32)
+        if(value.GetValue() >= 32)
           throw MemoryOutOfRangeException(arg + " is not a valid memory address. 0-31 is valid.", lineinfo);
 
-        value = Register::GetMemoryAt(value).GetValue();
+        value = Register::GetMemoryAt(value);
         return ValueType::VAR_VALUE;
       }
       else if(arg.find("#") == 0)
@@ -55,13 +55,13 @@ namespace IKEA {
         try {
           value = std::stoi(arg);
 
-          if(value >= 32)
+          if(value.GetValue() >= 32)
             throw MemoryOutOfRangeException(arg + " is not a valid memory address. 0-31 is valid.", lineinfo);
 
           if(asPlain)
             return ValueType::DIRECT;
 
-          value = Register::GetMemoryAt(value).GetValue();
+          value = Register::GetMemoryAt(value);
           return ValueType::DIRECT;
         }
         catch(const std::exception& e)
@@ -76,6 +76,18 @@ namespace IKEA {
             value = 0;
             return ValueType::PLAIN;
           }
+
+          if(arg.find("0b") == 0)
+          {
+            value = Memory::Memory::FromBinaryString(arg.erase(0, 2));
+            return ValueType::PLAIN;
+          }
+          if(arg.find("0x") == 0)
+          {
+            value = Memory::Memory::FromHexString(arg.erase(0, 2));
+            return ValueType::PLAIN;
+          }
+
           value = std::stoi(arg);
           return ValueType::PLAIN;
         }

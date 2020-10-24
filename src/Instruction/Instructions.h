@@ -11,13 +11,7 @@
 #include "MOV.h"
 #include "VAR.h"
 
-#include "INC.h"
-#include "DEC.h"
-#include "ADD.h"
-#include "SUB.h"
-
-#include "AND.h"
-#include "OR.h"
-#include "XOR.h"
+#include "ChangeONE.h"
+#include "DynamicArgs.h"
 
 #include "ROTATE.h"

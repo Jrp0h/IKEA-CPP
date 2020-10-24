@@ -28,7 +28,7 @@ protected:
       if(parts.size() != 2)
          throw InvalidArgumentCountException("Invalid argument count.", lineinfo);
 
-      int vValue = 0;
+      Memory::Memory vValue = 0;
 
       ValueType vtValue = ValueParser::Parse(parts[1], vValue, lineinfo, true);
 

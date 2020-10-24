@@ -18,13 +18,14 @@ namespace IKEA::Instruction {
    class ConditionJMP : public Instruction {
       public:
          ConditionJMP(std::string tag, int value) : Instruction(tag), m_Value(value)  {}
+         ConditionJMP(std::string tag, Memory::Memory value) : Instruction(tag), m_Value(value)  {}
          
       protected:
          bool ParseLine(std::vector<std::string> parts, Lineinfo lineinfo) override {
             if(parts.size() != 2)
                throw InvalidArgumentCountException("Invalid argument count.", lineinfo);
 
-            int value;
+            Memory::Memory value;
 
             ValueType vt = ValueParser::Parse(parts[0], value, lineinfo);
 
@@ -38,6 +39,6 @@ namespace IKEA::Instruction {
          }
 
       private:
-         int m_Value;
+         Memory::Memory m_Value;
    };
 }

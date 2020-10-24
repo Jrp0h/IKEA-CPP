@@ -25,8 +25,8 @@ namespace IKEA::Instruction {
          if(parts.size() != 3)
             throw InvalidArgumentCountException("Invalid argument count.", lineinfo);
 
-         int value1;
-         int value2;
+         Memory::Memory value1;
+         Memory::Memory value2;
 
          ValueType vt1 = ValueParser::Parse(parts[0], value1, lineinfo);
          ValueType vt2 = ValueParser::Parse(parts[1], value2, lineinfo);

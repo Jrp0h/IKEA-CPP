@@ -31,8 +31,8 @@ protected:
       if(parts.size() != 2)
          throw InvalidArgumentCountException("Invalid argument count.", lineinfo);
 
-      int vMemory = 0;
-      int vValue = 0;
+      Memory::Memory vMemory = 0;
+      Memory::Memory vValue = 0;
 
       ValueType vtMemory = ValueParser::Parse(parts[0], vMemory, lineinfo, true);
       ValueType vtValue = ValueParser::Parse(parts[1], vValue, lineinfo);
@@ -43,16 +43,16 @@ protected:
       switch(m_RotationType)
       {
          case RotationType::ROTATE_LEFT:
-            Register::GetMemoryAt(vMemory).RotateLeft(vValue);
+            Register::GetMemoryAt(vMemory).RotateLeft(vValue.GetValue());
             break;
          case RotationType::ROTATE_RIGHT:
-            Register::GetMemoryAt(vMemory).RotateRight(vValue);
+            Register::GetMemoryAt(vMemory).RotateRight(vValue.GetValue());
             break;
          case RotationType::SHIFT_LEFT:
-            Register::GetMemoryAt(vMemory).ShiftLeft(vValue);
+            Register::GetMemoryAt(vMemory).ShiftLeft(vValue.GetValue());
             break;
          case RotationType::SHIFT_RIGHT:
-            Register::GetMemoryAt(vMemory).ShiftRight(vValue);
+            Register::GetMemoryAt(vMemory).ShiftRight(vValue.GetValue());
             break;
       }
 

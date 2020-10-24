@@ -15,7 +15,7 @@ namespace IKEA::Memory {
       static void SetMemoryAt(int slot, bool value[16]);
       static void SetMemoryAt(int slot, Memory value);
 
-      static Memory& GetMemoryAt(int slot);
+      static Memory& GetMemoryAt(Memory slot);
 
       static Memory& GetVar(std::string name);
       static void SetVar(std::string name, int value);

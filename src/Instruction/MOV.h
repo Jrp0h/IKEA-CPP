@@ -27,8 +27,8 @@ namespace IKEA::Instruction {
          if(parts.size() != 2)
             throw InvalidArgumentCountException("Invalid argument count.", lineinfo);
 
-         int vMemory = 0;
-         int vValue = 0;
+         Memory::Memory vMemory = 0;
+         Memory::Memory vValue = 0;
 
          ValueType vtMemory = ValueParser::Parse(parts[0], vMemory, lineinfo, true);
          ValueType vtValue = ValueParser::Parse(parts[1], vValue, lineinfo);
@@ -36,7 +36,7 @@ namespace IKEA::Instruction {
          if(vtMemory == ValueType::PLAIN)
             throw InvalidSyntaxException("Memory address can't be plain, requires # before number.", lineinfo);
 
-         Register::SetMemoryAt(vMemory, vValue);
+         Register::SetMemoryAt(vMemory.GetValue(), vValue);
 
          return true;
       }

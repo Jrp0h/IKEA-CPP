@@ -108,13 +108,14 @@ namespace IKEA {
     m_Instructions.push_back(std::move(new MOV()));
     m_Instructions.push_back(std::move(new VAR()));
 
-    m_Instructions.push_back(std::move(new INC()));
-    m_Instructions.push_back(std::move(new DEC()));
-    m_Instructions.push_back(std::move(new ADD()));
-    m_Instructions.push_back(std::move(new SUB()));
-    m_Instructions.push_back(std::move(new AND()));
-    m_Instructions.push_back(std::move(new OR()));
-    m_Instructions.push_back(std::move(new XOR()));
+    m_Instructions.push_back(std::move(new ChangeONE("INC", true)));
+    m_Instructions.push_back(std::move(new ChangeONE("DEC", false)));
+
+    m_Instructions.push_back(std::move(new DynamicArgs("ADD", OperatorType::ADD)));
+    m_Instructions.push_back(std::move(new DynamicArgs("SUB", OperatorType::SUB)));
+    m_Instructions.push_back(std::move(new DynamicArgs("AND", OperatorType::AND)));
+    m_Instructions.push_back(std::move(new DynamicArgs("OR", OperatorType::OR)));
+    m_Instructions.push_back(std::move(new DynamicArgs("XOR", OperatorType::XOR)));
 
     m_Instructions.push_back(std::move(new Rotate("ROTL", RotationType::ROTATE_LEFT)));
     m_Instructions.push_back(std::move(new Rotate("ROTR", RotationType::ROTATE_RIGHT)));

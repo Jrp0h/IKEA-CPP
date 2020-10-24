@@ -43,11 +43,11 @@ namespace IKEA::Memory {
     m_Memory[slot] = value;
   }
 
-  Memory& Register::GetMemoryAt(int slot) {
-    if(slot >= m_Memory.size())
-      throw MemoryOutOfRangeException("Can't access memory " + std::to_string(slot) + ". 0-31 is valid.", ProgramFiles::LineinfoFromRealline(ProgramState::GetCurrentLine()));
+  Memory& Register::GetMemoryAt(Memory slot) {
+    if(slot.GetValue() >= m_Memory.size())
+      throw MemoryOutOfRangeException("Can't access memory " + std::to_string(slot.GetValue()) + ". 0-31 is valid.", ProgramFiles::LineinfoFromRealline(ProgramState::GetCurrentLine()));
 
-    return m_Memory[slot];
+    return m_Memory[slot.GetValue()];
   }
 
   Memory& Register::GetVar(std::string name){
