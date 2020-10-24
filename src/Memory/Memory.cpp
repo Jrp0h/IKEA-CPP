@@ -90,7 +90,7 @@ namespace IKEA::Memory {
       // IT IS NOT WORKING AS IT SHOULD!
       for(int j = 0; j < 4; j++)
       {
-        c += pow(2, j) * m_Data[i * 4 + j];
+        c += pow(2, 3 - j) * m_Data[i * 4 + j];
       }
       ss << m_HexChars[c];
     }
