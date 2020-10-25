@@ -1,7 +1,7 @@
 cd build 
 
-make
+make &&
 
-cd ..
+cd .. &&
 
 build/IKEA $1
