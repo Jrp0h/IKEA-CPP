@@ -5,6 +5,8 @@
 
 #include "Memory.h"
 
+#include "Str.h"
+
 namespace IKEA::Memory {
   Memory::Memory() {
     ResetValue();
@@ -122,19 +124,23 @@ namespace IKEA::Memory {
     if(string.size() > 4)
         throw std::runtime_error("Hex number can have a maximum of 4 chars");
 
+    // Create a copy that is uppercase
+    auto s = string;
+    Str::ToUpper(s);
+
     // Go over all chars in the string
     // then check if it max a char in hex chars
     // if it does, add it and shift them left
-    for(int i = 0; i < string.size(); i++)
+    for(int i = 0; i < s.size(); i++)
     {
       bool found = false;
       for(int j = 0; j < 16; j++)
       {
-        if(string[i] == m_HexChars[j])
+        if(s[i] == m_HexChars[j])
         {
           found = true;
           Memory tmp(j);
-          tmp.ShiftLeft(4 * (string.size() - 1 - i)); // if it's the first loop then it's the first 4 bit, otherwise it's the 4 bits by offset 4 * i
+          tmp.ShiftLeft(4 * (s.size() - 1 - i)); // if it's the first loop then it's the first 4 bit, otherwise it's the 4 bits by offset 4 * i
           mem = Memory::Add(mem, tmp);
           break;
         }

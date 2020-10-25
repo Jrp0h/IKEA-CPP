@@ -220,6 +220,20 @@ Print text
 PRNT [STR]
 ```
 
+Print values
+
+```bash
+PRNT [$VAR_VALUE|&VAR|#DIRECT]
+```
+
+Print values in format
+
+See: tests/prnt_formats.ikea
+
+```bash
+PRNT [$VAR_VALUE|&VAR|#DIRECT],[hex|bin|dec]
+```
+
 Print All variables
 
 ```bash

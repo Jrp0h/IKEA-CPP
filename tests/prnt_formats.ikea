@@ -2,4 +2,6 @@ MOV #0, 0b111100
 MOV #1, 0x3C 
 MOV #2, 60 
 
-PRNTM
+PRNT #0,dec
+PRNT #1,bin
+PRNT #2,hex
