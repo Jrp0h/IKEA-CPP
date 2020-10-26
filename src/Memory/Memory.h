@@ -39,9 +39,12 @@ namespace IKEA::Memory {
       static Memory AND(Memory& mem1, Memory& mem2);
       static Memory OR(Memory& mem1, Memory& mem2);
       static Memory XOR(Memory& mem1, Memory& mem2);
+      static Memory NOT(Memory& mem1);
 
       static bool GreaterThan(Memory& mem1, Memory& mem2);
       static bool LessThan(Memory& mem1, Memory& mem2);
+
+      Memory NOT();
 
       Memory operator+(Memory& other);
       Memory operator+(int other);
@@ -66,6 +69,7 @@ namespace IKEA::Memory {
 
       Memory operator^(Memory& other);
       Memory operator^(int other);
+
     private:
       void ResetValue();
 

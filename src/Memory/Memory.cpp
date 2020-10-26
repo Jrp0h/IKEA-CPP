@@ -154,6 +154,22 @@ namespace IKEA::Memory {
 
   }
 
+  Memory Memory::NOT(Memory& mem1){
+    for(int i = 0; i < 16; i++) {
+      mem1[i] = !mem1[i];
+    }
+
+    return mem1;
+  }
+
+  Memory Memory::NOT(){
+    for(int i = 0; i < 16; i++) {
+      this->m_Data[i] = !this->m_Data[i];
+    }
+
+    return *this;
+  }
+
   bool& Memory::operator[](const int i)
   {
     if(i > 15)
@@ -163,10 +179,8 @@ namespace IKEA::Memory {
   }
 
   Memory Memory::TwoCompliment(Memory &mem) {
-    for(int i = 0; i < 16; i++) {
-      mem[i] = !mem[i];
-    }
 
+    mem.NOT();
     Memory one(1);
 
     return Add(mem, one);

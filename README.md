@@ -40,7 +40,8 @@ VAR (&) = the memory address the var is pointing to, like reference in c/c++
 
 DIRECT (\#) = Index of memory, 0-31
 
-PLAIN () = Normal number
+PLAIN () = Normal number, can be prefixed with 0x for hex numbers of max 4 chars
+and 0b for binary numbers of max 16 digits
 
 STR = Text
 
@@ -142,7 +143,7 @@ OR [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
 
 XOR
 
-arg1 ^= arg3
+arg1 ^= arg2
 
 ```bash
 XOR [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
@@ -152,6 +153,20 @@ arg1 = arg1 | arg2
 
 ```bash
 XOR [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
+```
+
+NOT
+
+arg1 = !arg2
+
+```bash
+NOT [$VAR_VALUE|&VAR|#DIRECT],[$VAR_VALUE|&VAR|#DIRECT|PLAIN]
+```
+
+arg1 = !arg1
+
+```bash
+NOT [$VAR_VALUE|&VAR|#DIRECT]
 ```
 
 ### Flow Control
