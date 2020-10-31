@@ -183,16 +183,40 @@ Jump to section if value is 1(one)
 JMPO [$VAR_VALUE|&VAR|#DIRECT],[SEC_STR]
 ```
 
-Jump to section if value is \<2nd param\>
+Jump to section if value is EQUAL \<2nd param\>
 
 ```bash
 JMPT [$VAR_VALUE|&VAR|#DIRECT|PLAIN],[$VAR_VALUE|&VAR|#DIRECT|PLAIN],[SEC_STR]
 ```
 
-Jump to section if value is NOT \<2nd param\>
+Jump to section if value is NOT EQUAL to\<2nd param\>
 
 ```bash
 JMPF [$VAR_VALUE|&VAR|#DIRECT|PLAIN],[$VAR_VALUE|&VAR|#DIRECT|PLAIN],[SEC_STR]
+```
+
+Jump to section if value is LESS than \<2nd param\>
+
+```bash
+JMPL [$VAR_VALUE|&VAR|#DIRECT|PLAIN],[$VAR_VALUE|&VAR|#DIRECT|PLAIN],[SEC_STR]
+```
+
+Jump to section if value is GREATER than \<2nd param\>
+
+```bash
+JMPG [$VAR_VALUE|&VAR|#DIRECT|PLAIN],[$VAR_VALUE|&VAR|#DIRECT|PLAIN],[SEC_STR]
+```
+
+Jump to section if value is LESS THAN OR EQUAL to\<2nd param\>
+
+```bash
+JMPLE [$VAR_VALUE|&VAR|#DIRECT|PLAIN],[$VAR_VALUE|&VAR|#DIRECT|PLAIN],[SEC_STR]
+```
+
+Jump to section if value is GREATER THAN OR EQUAL to \<2nd param\>
+
+```bash
+JMPGE [$VAR_VALUE|&VAR|#DIRECT|PLAIN],[$VAR_VALUE|&VAR|#DIRECT|PLAIN],[SEC_STR]
 ```
 
 ### Other

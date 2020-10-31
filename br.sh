@@ -4,4 +4,4 @@ make &&
 
 cd .. &&
 
-build/IKEA $1
+build/IKEA "$@"

@@ -102,8 +102,12 @@ namespace IKEA {
     m_Instructions.push_back(std::move(new JMP()));
     m_Instructions.push_back(std::move(new ConditionJMP("JMPZ", 0)));
     m_Instructions.push_back(std::move(new ConditionJMP("JMPO", 1)));
-    m_Instructions.push_back(std::move(new JMPIF("JMPT", true)));
-    m_Instructions.push_back(std::move(new JMPIF("JMPF", false)));
+    m_Instructions.push_back(std::move(new JMPIF("JMPT", ComparisonType::EQUAL)));
+    m_Instructions.push_back(std::move(new JMPIF("JMPF", ComparisonType::NOT_EQUAL)));
+    m_Instructions.push_back(std::move(new JMPIF("JMPL", ComparisonType::LESS)));
+    m_Instructions.push_back(std::move(new JMPIF("JMPG", ComparisonType::GREATER)));
+    m_Instructions.push_back(std::move(new JMPIF("JMPLE", ComparisonType::LESS_OR_EQUAL)));
+    m_Instructions.push_back(std::move(new JMPIF("JMPGE", ComparisonType::GREATER_OR_EQUAL)));
 
     m_Instructions.push_back(std::move(new MOV()));
     m_Instructions.push_back(std::move(new VAR()));

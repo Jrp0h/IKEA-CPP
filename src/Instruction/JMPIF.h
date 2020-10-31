@@ -16,9 +16,19 @@
 using namespace IKEA::Exception;
 
 namespace IKEA::Instruction {
+   
+   enum class ComparisonType { 
+      EQUAL = 1, 
+      NOT_EQUAL, 
+      LESS, 
+      GREATER,
+      LESS_OR_EQUAL,
+      GREATER_OR_EQUAL
+   };
+
    class JMPIF : public Instruction {
    public:
-      JMPIF(std::string tag, bool value) : Instruction(tag), m_Value(value)  {}
+      JMPIF(std::string tag, ComparisonType type) : Instruction(tag), m_Type(type)  {}
       
    protected:
       bool ParseLine(std::vector<std::string> parts, Lineinfo lineinfo) override {
@@ -31,7 +41,7 @@ namespace IKEA::Instruction {
          ValueType vt1 = ValueParser::Parse(parts[0], value1, lineinfo);
          ValueType vt2 = ValueParser::Parse(parts[1], value2, lineinfo);
 
-         if(vt1 == ValueType::PLAIN && vt1 == ValueType::PLAIN)
+         if(vt1 == ValueType::PLAIN && vt2 == ValueType::PLAIN)
          {
             if(value1 == value2)
                throw UnnecessaryComparisonException("Always true, use JMP insted.", lineinfo);
@@ -39,13 +49,38 @@ namespace IKEA::Instruction {
                throw UnnecessaryComparisonException("Always false, remove.", lineinfo);
          }
 
-         if((value1 == value2) == m_Value)
-            ProgramState::SetNextLine(ProgramState::GetSectionLocation(parts[2], lineinfo) + 1);
+         switch(m_Type)
+         {
+            case ComparisonType::EQUAL:
+               if(value1 == value2)
+                  ProgramState::SetNextLine(ProgramState::GetSectionLocation(parts[2], lineinfo) + 1);
+               break;
+            case ComparisonType::NOT_EQUAL:
+               if(value1 != value2)
+                  ProgramState::SetNextLine(ProgramState::GetSectionLocation(parts[2], lineinfo) + 1);
+               break;
+            case ComparisonType::LESS:
+               if(value1 < value2)
+                  ProgramState::SetNextLine(ProgramState::GetSectionLocation(parts[2], lineinfo) + 1);
+               break;
+            case ComparisonType::GREATER:
+               if(value1 > value2)
+                  ProgramState::SetNextLine(ProgramState::GetSectionLocation(parts[2], lineinfo) + 1);
+               break;
+            case ComparisonType::LESS_OR_EQUAL:
+               if(value1 <= value2)
+                  ProgramState::SetNextLine(ProgramState::GetSectionLocation(parts[2], lineinfo) + 1);
+               break;
+            case ComparisonType::GREATER_OR_EQUAL:
+               if(value1 >= value2)
+                  ProgramState::SetNextLine(ProgramState::GetSectionLocation(parts[2], lineinfo) + 1);
+               break;
+         }
 
          return true;
       }
 
    private:
-      bool m_Value;
+      ComparisonType m_Type;
    };
 }
